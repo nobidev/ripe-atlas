@@ -49,6 +49,7 @@ COPY --from=builder /root/*.deb /
 ######## ripe-atlas-base ########
 FROM base AS ripe-atlas-base
 ENV RXTXRPT=yes
+HEALTHCHECK --interval=30s --timeout=1s --start-period=60s --retries=3 CMD [ "healthcheck.sh" ]
 
 ######## Release: ripe-atlas-anchor ########
 FROM ripe-atlas-base AS ripe-atlas-anchor
