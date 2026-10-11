@@ -76,6 +76,7 @@ if [ "${ENTRYPOINT_SKIP_CONFIG_FILE}" != "1" ]; then
 			printf "%s=%s\n" "${OPT}" "${!OPT}" >> "${CONFIG_FILE}"
 		fi
 	done
+	chown ripe-atlas:ripe-atlas ${CONFIG_FILE}
 else
 	>&2 printf "[entrypoint.sh]: Skipping config file creation\n"
 fi
