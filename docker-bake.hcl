@@ -3,10 +3,10 @@ variable "CR_DOCKER_HUB_PREFIX" {
     default = "docker.io"
 }
 variable "IMAGE_TAG_PREFIX" {
-    default = "docker.io/jamesits/ripe-atlas"
+    default = "docker.io/nobidev/ripe-atlas"
 }
 variable "IMAGE_GHCR_TAG_PREFIX" {
-    default = "ghcr.io/jamesits/ripe-atlas"
+    default = "ghcr.io/nobidev/ripe-atlas"
 }
 
 group "default" {
@@ -21,7 +21,7 @@ target "_default" {
     }
     annotations = [
         "index,manifest:org.opencontainers.image.authors=dockerhub@public.swineson.me",
-        "index,manifest:org.opencontainers.image.source=https://github.com/jamesits/docker-ripe-atlas",
+        "index,manifest:org.opencontainers.image.source=https://github.com/nobidev/ripe-atlas",
     ]
     attest = [
         "type=provenance,mode=max",
