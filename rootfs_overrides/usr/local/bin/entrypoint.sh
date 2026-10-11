@@ -80,6 +80,15 @@ else
 	>&2 printf "[entrypoint.sh]: Skipping config file creation\n"
 fi
 
+for af in 4 6; do
+  name="ATLAS_IP${af}"
+  declare -n val="$name"
+  if [ ${val:-default} != default ]; then
+    eval "export REG_HOSTS_IP${af}=\"${val}\""
+    eval "export EVPING_IP${af}=\"${val}\""
+  fi
+done
+
 >&2 printf "[entrypoint.sh]: Done\n"
 if [ "$1" = "ripe-atlas" ] && [ "${ENTRYPOINT_DO_NOT_SET_USER}" != "1" ]; then
 	exec setpriv --reuid="ripe-atlas" --regid="ripe-atlas" --init-groups --ambient-caps=+NET_RAW -- "$@"
