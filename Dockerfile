@@ -19,6 +19,7 @@ RUN install --owner=ripe-atlas-measurement --group=ripe-atlas --mode=0755 --dire
 ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update -y \
 	&& apt-get install -y libcap2-bin iproute2 openssh-client procps net-tools tini systemd \
+	&& apt-get install -y bind9-dnsutils curl iputils-ping mtr jq \
 	&& rm -rf /var/lib/apt/lists/*
 
 ######## builder ########
