@@ -1,0 +1,24 @@
+diff --git a/bin/arch/generic/generic-common.sh.in b/bin/arch/generic/generic-common.sh.in
+index eb61399..2b0e1a3 100644
+--- a/bin/arch/generic/generic-common.sh.in
++++ b/bin/arch/generic/generic-common.sh.in
+@@ -5,7 +5,7 @@ KNOWN_HOSTS_REG=$ATLAS_DATADIR/known_hosts.reg
+ REG_SERVERS=$ATLAS_SYSCONFDIR/reg_servers.sh
+ 
+ # Commands
+-SET_LEDS_CMD=:
++SET_LEDS_CMD=log_status
+ STATIC_V4_CMD=:
+ STATIC_V6_CMD=:
+ 
+@@ -13,3 +13,10 @@ reboot_probe()
+ {
+ 	:
+ }
++
++log_status()
++{
++	state="$1"
++	date_now="$(date +'%D %H:%M:%S')"
++	echo "$date_now $state" >>/tmp/ripe_probe
++}

@@ -1,0 +1,28 @@
+diff --git a/bin/arch/linux/linux-functions.sh b/bin/arch/linux/linux-functions.sh
+index 3215c9a..2938e1e 100644
+--- a/bin/arch/linux/linux-functions.sh
++++ b/bin/arch/linux/linux-functions.sh
+@@ -25,13 +25,21 @@ dfrm()
+ {
+ 	$ATLAS_MEASUREMENT/dfrm "$@"
+ }
++evping_opts()
++{
++	if [ ${EVPING_IP4:-yes} == yes ] && [ ${EVPING_IP6:-yes} == no ]; then
++	  echo -n "-4"
++	elif [ ${EVPING_IP4:-yes} == no ] && [ ${EVPING_IP6:-yes} == yes ]; then
++	  echo -n "-6"
++	fi
++}
+ evping()
+ {
+-	$ATLAS_MEASUREMENT/evping "$@"
++	$ATLAS_MEASUREMENT/evping $(evping_opts) "$@"
+ }
+ evping_no_check()
+ {
+-	ATLAS_DISABLE_CHECK_ADDR=yes $ATLAS_MEASUREMENT/evping "$@"
++	ATLAS_DISABLE_CHECK_ADDR=yes $ATLAS_MEASUREMENT/evping $(evping_opts) "$@"
+ }
+ httppost()
+ {

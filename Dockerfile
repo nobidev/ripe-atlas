@@ -32,6 +32,11 @@ RUN apt-get update -y \
 
 WORKDIR /root
 COPY ./ripe-atlas-software-probe /root/ripe-atlas-software-probe
+COPY ./patches /root/ripe-atlas-software-probe-patches
+RUN cd ripe-atlas-software-probe \
+	&& for item in $(ls ../ripe-atlas-software-probe-patches/*.patch | sort); do \
+		patch -p1 < ${item}; \
+	  done
 RUN cd ripe-atlas-software-probe \
 	&& dpkg-buildpackage -b -us -uc
 

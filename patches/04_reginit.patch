@@ -1,0 +1,12 @@
+diff --git a/bin/reginit.sh.in b/bin/reginit.sh.in
+index e8280fc..f7c9ec5 100755
+--- a/bin/reginit.sh.in
++++ b/bin/reginit.sh.in
+@@ -149,6 +149,7 @@ if [ "$need_rereg" = 1 ]; then
+ 		echo "RESULT 9011 done $D $ETHER_SCANNED ERR $ERR stdout" `cat $REG_INIT_REPLY`  >> $DATA_NEW_DIR/simpleping
+ 		echo "RESULT 9011 done $D $ETHER_SCANNED stderr" `cat $SSH_ERR`  >> $DATA_NEW_DIR/simpleping
+ 		echo "$ERR  REGINIT exit with error"
++		echo "$ERR  REGINIT stderr: `cat $SSH_ERR`"
+ 		$SET_LEDS_CMD reginit-fail
+ 		if grep -q "Permission denied (publickey)." $SSH_ERR
+ 		then

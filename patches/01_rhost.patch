@@ -1,0 +1,28 @@
+diff --git a/bin/reginit.sh.in b/bin/reginit.sh.in
+index e8280fc..ac31c46 100755
+--- a/bin/reginit.sh.in
++++ b/bin/reginit.sh.in
+@@ -128,8 +128,23 @@ fi
+ 
+ if [ "$need_rereg" = 1 ]; then
+ 	rm -f $CON_KEEP_CONF
++	for i in $(seq 1 6); do
++	  name="REG_${i}_HOST"
++	  host_type="DNS"
++	  if [[ ${!name} =~ ^[0-9.]+$ ]]; then
++	    host_type="IP4"
++	  elif [[ ${!name} =~ ^[0-9a-f:]+$ ]]; then
++	    host_type="IP6"
++	  fi
++	  env_host_type="REG_HOSTS_${host_type}"
++	  if [ ${!env_host_type:-yes} == no ]; then
++	    declare -n host_val="${name}"
++	    host_val=""
++	  fi
++	done
+ 	R_HOST=`rchoose $REG_1_HOST $REG_2_HOST $REG_3_HOST $REG_4_HOST $REG_5_HOST $REG_6_HOST`
+ 	echo "REGHOSTS $REG_1_HOST $REG_2_HOST $REG_3_HOST $REG_4_HOST $REG_5_HOST $REG_6_HOST"
++	echo "R_HOST ${R_HOST}"
+ 	$BUDDYINFO $LOW_MEM_T $DATA_NEW_DIR/simpleping
+ 	if [ $? -eq 1 ] ; then
+                 D=`epoch`
